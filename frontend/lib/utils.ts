@@ -50,16 +50,20 @@ export const saveContactNative = async (data: {
     const isAndroid = /Android/i.test(navigator.userAgent)
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent)
 
+    console.log('📱 Attempting to save contact...', { isAndroid, isIOS })
+
     // 1. Android: Use Intent to open native "Insert Contact" screen
-    // This allows user to pick the account (Google, Samsung, etc.)
     if (isAndroid) {
-        const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${encodeURIComponent(data.name)};S.phone=${encodeURIComponent(data.phone)};S.email=${encodeURIComponent(data.email)};S.company=${encodeURIComponent(data.title)};end`
-        window.location.href = intentUrl
-        return
+        try {
+            const intentUrl = `intent:#Intent;action=android.intent.action.INSERT;type=vnd.android.cursor.dir/contact;S.name=${encodeURIComponent(data.name)};S.phone=${encodeURIComponent(data.phone)};S.email=${encodeURIComponent(data.email)};S.company=${encodeURIComponent(data.title)};end`
+            window.location.href = intentUrl
+            return
+        } catch (err) {
+            console.error('Android intent failed', err)
+        }
     }
 
     // 2. iOS/Others: Try Web Share API with VCF File
-    // This avoids "downloading" to file system/Downloads folder
     if (navigator.share && navigator.canShare) {
         const vcfString = generateVCF(data)
         const file = new File([vcfString], `${data.name.replace(/\s+/g, '_')}.vcf`, { type: 'text/vcard' })
@@ -72,15 +76,15 @@ export const saveContactNative = async (data: {
                 })
                 return
             } catch (err) {
-                console.error('Share failed', err)
-                // If share cancelled or failed, do nothing or fallback
+                console.error('Share API failed', err)
             }
         }
     }
 
-    // 3. Fallback: If strict "no download" is required, open Dialer
-    // Downloading VCF is blocked by user request.
-    window.location.href = `tel:${data.phone}`
+    // 3. Last Resort Fallback: Download VCF File
+    console.log('💾 Falling back to VCF download...')
+    const vcf = generateVCF(data)
+    downloadVCF(vcf, `${data.name.replace(/\s+/g, '_')}.vcf`)
 }
 
 /**
