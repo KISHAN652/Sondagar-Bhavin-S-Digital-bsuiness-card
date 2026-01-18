@@ -1,0 +1,25 @@
+{
+    "name": "Digital Business Card",
+    "short_name": "MyCard",
+    "description": "Your professional digital business card",
+    "start_url": "/card",
+    "scope": "/card",
+    "display": "standalone",
+    "background_color": "#ffffff",
+    "theme_color": "#8b5cf6",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "/icon-192x192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any maskable"
+        },
+        {
+            "src": "/icon-512x512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any maskable"
+        }
+    ]
+}

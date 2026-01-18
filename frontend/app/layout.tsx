@@ -13,7 +13,6 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
     title: 'Digital Business Card',
     description: 'Premium digital business card with NFC support',
-    manifest: '/manifest.json',
     icons: {
         icon: '/icon-192x192.png',
         apple: '/icon-192x192.png',

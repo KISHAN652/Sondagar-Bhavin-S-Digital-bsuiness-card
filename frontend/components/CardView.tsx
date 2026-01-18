@@ -4,7 +4,6 @@ import { useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import Image from 'next/image'
 import {
-    saveContactNative,
     isNFCSupported,
     writeNFC
 } from '@/lib/utils'
@@ -43,22 +42,6 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
         ? `${window.location.origin}/card/${cardId}`
         : `${process.env.NEXT_PUBLIC_APP_URL}/card/${cardId}`
 
-    // Handle Connect Button
-    const handleConnect = async () => {
-        try {
-            await saveContactNative({
-                name: "Sondagar Bhavin.A", // Explicitly required by user
-                title: cardData.title,
-                phone: cardData.phone,
-                email: cardData.email,
-                website: cardData.website
-            })
-        } catch (error) {
-            console.error('Error in connect handler:', error)
-            // Fallback to dialer if something goes wrong
-            window.location.href = `tel:${cardData.phone}`
-        }
-    }
 
     // Handle Save Card (Download PDF)
     const handleSaveCard = async () => {
@@ -246,18 +229,6 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
                         {/* ACTIONS SECTION */}
                         <div className="px-6 -mt-4 relative z-50 space-y-4">
 
-                            {/* Primary Button */}
-                            <motion.button
-                                whileHover={{ scale: 1.02 }}
-                                whileTap={{ scale: 0.98 }}
-                                onClick={handleConnect}
-                                className="w-full glass-button-primary h-14 rounded-2xl flex items-center justify-center gap-3 text-white font-bold text-lg tracking-wide uppercase shadow-lg shadow-purple-500/20"
-                            >
-                                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0zM3 20a6 6 0 0112 0v1H3v-1z" />
-                                </svg>
-                                Connect
-                            </motion.button>
 
                             {/* Secondary Buttons Row */}
                             <div className="flex gap-4">
@@ -306,22 +277,22 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
 
                             {/* Contact Links */}
                             <div className="space-y-3">
-                                <a href={`tel:${cardData.phone}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full">
+                                <a href={`tel:${cardData.phone}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full overflow-hidden">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                     </div>
-                                    <div className="min-w-0">
-                                        <p className="text-slate-700 font-medium text-sm sm:text-base break-all">
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-slate-700 font-medium text-sm sm:text-base break-all truncate sm:break-words">
                                             {cardData.phone}
                                         </p>
                                     </div>
                                 </a>
 
-                                <a href={`mailto:${cardData.email}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full">
+                                <a href={`mailto:${cardData.email}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full overflow-hidden">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                     </div>
-                                    <div className="min-w-0">
+                                    <div className="min-w-0 flex-1">
                                         <p className="text-slate-700 font-medium text-[13px] sm:text-base break-all leading-tight">
                                             {cardData.email}
                                         </p>
@@ -332,13 +303,13 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
                                     href={cardData.website.startsWith('http') ? cardData.website : `https://${cardData.website}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full"
+                                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full overflow-hidden"
                                 >
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
                                     </div>
-                                    <div className="min-w-0">
-                                        <p className="text-slate-700 font-medium text-sm sm:text-base break-all">
+                                    <div className="min-w-0 flex-1">
+                                        <p className="text-slate-700 font-medium text-sm sm:text-base break-all truncate sm:break-words">
                                             {cardData.website.replace(/^https?:\/\//, '')}
                                         </p>
                                     </div>
