@@ -306,23 +306,23 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
 
                             {/* Contact Links */}
                             <div className="space-y-3">
-                                <a href={`tel:${cardData.phone}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full min-w-0">
+                                <a href={`tel:${cardData.phone}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" /></svg>
                                     </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-slate-700 font-medium text-sm sm:text-base truncate break-words">
+                                    <div className="min-w-0">
+                                        <p className="text-slate-700 font-medium text-sm sm:text-base break-all">
                                             {cardData.phone}
                                         </p>
                                     </div>
                                 </a>
 
-                                <a href={`mailto:${cardData.email}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full min-w-0">
+                                <a href={`mailto:${cardData.email}`} className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full">
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" /></svg>
                                     </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-slate-700 font-medium text-xs sm:text-base truncate break-all sm:break-words">
+                                    <div className="min-w-0">
+                                        <p className="text-slate-700 font-medium text-[13px] sm:text-base break-all leading-tight">
                                             {cardData.email}
                                         </p>
                                     </div>
@@ -332,13 +332,13 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
                                     href={cardData.website.startsWith('http') ? cardData.website : `https://${cardData.website}`}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full min-w-0"
+                                    className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full"
                                 >
                                     <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                         <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.657 0 3-4.03 3-9s-1.343-9-3-9m0 18c-1.657 0-3-4.03-3-9s1.343-9 3-9m-9 9a9 9 0 019-9" /></svg>
                                     </div>
-                                    <div className="flex-1 min-w-0">
-                                        <p className="text-slate-700 font-medium text-sm sm:text-base truncate">
+                                    <div className="min-w-0">
+                                        <p className="text-slate-700 font-medium text-sm sm:text-base break-all">
                                             {cardData.website.replace(/^https?:\/\//, '')}
                                         </p>
                                     </div>
@@ -350,7 +350,7 @@ export default function CardView({ cardData, cardId }: CardViewProps) {
                                         href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(cardData.location)}`}
                                         target="_blank"
                                         rel="noopener noreferrer"
-                                        className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full min-w-0"
+                                        className="flex items-center gap-3 sm:gap-4 p-3 sm:p-4 rounded-2xl glass-panel group hover:bg-slate-50 transition-colors w-full"
                                     >
                                         <div className="w-8 h-8 sm:w-10 sm:h-10 rounded-full bg-slate-200 flex items-center justify-center text-slate-700 shrink-0">
                                             <svg className="w-4 h-4 sm:w-5 sm:h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" /><path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" /></svg>
