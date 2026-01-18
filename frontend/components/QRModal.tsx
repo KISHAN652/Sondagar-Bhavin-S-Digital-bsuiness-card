@@ -81,10 +81,15 @@ export default function QRModal({ isOpen, onClose, cardUrl }: QRModalProps) {
                                 </div>
                             )}
 
-                            {/* Instructions */}
-                            <p className="text-slate-500 text-sm text-center">
-                                Scan this QR code to open the digital business card
-                            </p>
+                            {/* Instructions & Link */}
+                            <div className="space-y-2">
+                                <p className="text-slate-500 text-sm text-center">
+                                    Scan this QR code or use the link below:
+                                </p>
+                                <div className="bg-slate-50 p-3 rounded-xl border border-slate-200 break-all text-xs font-mono text-slate-600 text-center select-all">
+                                    {cardUrl}
+                                </div>
+                            </div>
 
                             {/* Buttons */}
                             <div className="space-y-3">
